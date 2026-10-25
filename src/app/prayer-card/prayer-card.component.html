@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-between align-items-center border rounded p-3 mb-2"
+     [ngClass]="{ 'border-success': prochaine, 'bg-success-subtle': prochaine }">
+  <span class="fs-5">
+    @switch (nom) {
+      @case ('Fajr') { 🌅 }
+      @case ('Dhuhr') { ☀️ }
+      @case ('Asr') { 🌤️ }
+      @case ('Maghrib') { 🌇 }
+      @case ('Isha') { 🌙 }
+      @default { 🕌 }
+    }
+    {{ nom }}
+  </span>
+  <strong class="fs-4">{{ heure }}</strong>
+</div>

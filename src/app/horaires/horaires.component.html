@@ -1,0 +1,43 @@
+<a routerLink="/" class="btn btn-sm btn-outline-secondary mb-3">← Nouvelle recherche</a>
+
+@if (erreur) {
+  <div class="alert alert-danger">{{ erreur }}</div>
+}
+
+@if (chargement) {
+  <div class="text-center my-3"><div class="spinner-border"></div></div>
+}
+
+@if (horaires.length) {
+  <div class="text-center mb-3">
+    @if (ville) {
+      <h3>{{ ville | titlecase }}</h3>
+    } @else {
+      <h3>Ma position</h3>
+      <small class="text-muted">Lat : {{ lat }} · Long : {{ lng }}</small>
+    }
+    <div>{{ dateJour | date: 'fullDate' | titlecase }}</div>
+    <div class="text-muted">{{ dateHijri }}</div>
+  </div>
+
+  @for (p of horaires; track p.nom) {
+    <app-prayer-card [nom]="p.nom" [heure]="p.heure" [prochaine]="p.nom === prochaine?.nom" />
+  }
+
+  @if (prochaine) {
+    <div class="alert alert-success text-center mt-3">
+      Prochaine prière : <strong>{{ prochaine.nom }}</strong> à {{ prochaine.heure }}<br>
+      Temps restant :
+      <strong [ngStyle]="{ color: reste < 900 ? 'red' : 'green' }">{{ tempsRestant }}</strong>
+    </div>
+  }
+
+  <div class="card p-3 mt-3">
+    <label class="form-label">Méthode de calcul</label>
+    <select class="form-select" [ngModel]="methode" (ngModelChange)="changerMethode($event)">
+      @for (m of methodes; track m.id) {
+        <option [ngValue]="m.id">{{ m.nom }}</option>
+      }
+    </select>
+  </div>
+}

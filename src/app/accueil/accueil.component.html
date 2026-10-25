@@ -1,0 +1,24 @@
+<h2 class="mb-3">Horaires de prière</h2>
+
+<div class="card p-3">
+  <div class="input-group mb-3">
+    <input class="form-control" type="text" [(ngModel)]="ville"
+           placeholder="Ville (ex : Tunis)" (keyup.enter)="rechercher()">
+    <button class="btn btn-success" (click)="rechercher()">Rechercher</button>
+  </div>
+
+  <label class="form-label">Méthode de calcul</label>
+  <select class="form-select mb-3" [(ngModel)]="methode">
+    @for (m of methodes; track m.id) {
+      <option [ngValue]="m.id">{{ m.nom }}</option>
+    }
+  </select>
+
+  <button class="btn btn-outline-secondary" (click)="utiliserPosition()">
+    📍 Utiliser ma position
+  </button>
+
+  @if (erreur) {
+    <div class="alert alert-danger mt-3">{{ erreur }}</div>
+  }
+</div>
